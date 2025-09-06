@@ -93,4 +93,38 @@ public class Complex {
     public double lengthSQ() {
         return re * re + im * im;
     }
+
+    /**
+     * Division operation.
+     * @param b divisor
+     * @return this Complex object whose value is this / b
+     */
+    public Complex divide(Complex b) {
+        double denominator = b.re * b.re + b.im * b.im;
+        double real = (re * b.re + im * b.im) / denominator;
+        double imag = (im * b.re - re * b.im) / denominator;
+        re = real;
+        im = imag;
+        return this;
+    }
+
+    /**
+     * Power operation.
+     * @param n power
+     * @return this Complex object whose value is this^n
+     */
+    public Complex power(int n) {
+        Complex result = new Complex(1, 0);
+        Complex base = new Complex(re, im);
+        while (n > 0) {
+            if (n % 2 == 1) {
+                result = result.times(base);
+            }
+            base = base.times(base);
+            n /= 2;
+        }
+        re = result.re;
+        im = result.im;
+        return this;
+    }
 }
